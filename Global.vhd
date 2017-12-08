@@ -31,12 +31,12 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity Global is
     port (
-	     clk         : in std_logic;
+	  clk         : in std_logic;
      	  reset       : in std_logic;
-    	  botonU      : in std_logic;
-	     botonD      : in std_logic;
-   	  ledSelector : out std_logic_vector(3 downto 0);
-		  led7seg     : out std_logic_vector(6 downto 0)
+    	  U      : in std_logic;
+	  D      : in std_logic;
+	  Display : out std_logic_vector(3 downto 0);
+	 seg7     : out std_logic_vector(6 downto 0)
 		  
 	 
 	 );
@@ -78,7 +78,7 @@ begin
 		  salida     => D
     );
 	 
-	 -- Aqui irian las ecuaciones de estado (manejar cuándo se esta en cada estado)
+	 -- Aqui irian las ecuaciones de estado (manejar cuÃ¡ndo se esta en cada estado)
 
 
     -- Funcionamiento del juego:
@@ -100,11 +100,11 @@ begin
 					 --   pasar a jugar pasaremos por el modo reset, donde se ponen ya a 0.
 				else
 				    -- Lo que ocurre cuando se esta jugando normal:
-				    -- Si se pulsa un botón (U/D) -> | YAGO: Cambiar la posición y ver choqueLB (Choque lateral con el borde)
+				    -- Si se pulsa un botÃ³n (U/D) -> | YAGO: Cambiar la posiciÃ³n y ver choqueLB (Choque lateral con el borde)
 				    --                               | KOKE: Corre la aleatoriedad.
 				    --                               |
 				    -- Si pasa un ciclo de tiempo (0,8 seg) -> | KOKE: Nuevo traste
-				    --                                         | IÑAKI: Todos los demás se desplazan
+				    --                                         | IÃ‘AKI: Todos los demÃ¡s se desplazan
 				    --                                         | JAVI: Ver choqueF
 				    --                                         |
 				end if;	     
@@ -123,7 +123,7 @@ begin
         elsif clk'event and clk = '1' then
 	         if vivo = '0' then
 				    -- Lo que ocurre cuando se esta muerto:
-				    -- Explosión: led7seg = 1111111 y ledSelector = 0001
+				    -- ExplosiÃ³n: led7seg = 1111111 y ledSelector = 0001
 				elsif state = S_INI then
 				    -- Lo que ocurre cuando se esta en el estado inicial:
 				    -- Todo en negro: led7seg = 0000000 y si no deja ledSelector = 0000 entonces poner cualquiera
@@ -132,7 +132,7 @@ begin
 	    			-- switch CNT_0_5 -> | case 0 o 1 (jugador) -> | if posicion = 01 then led7seg = (abajo)
 					--                   |                         | if posicion = 10 then led7seg = (medio)
 					--                   |                         | if posicion = 11 then led7seg = (arriba)
-					--                   |                         | if posicion = 11 (NO DEBERÍA OCURRIR) then suicidate = 1
+					--                   |                         | if posicion = 11 (NO DEBERÃA OCURRIR) then suicidate = 1
 					--                   | case 2 (traste D)    -> | if D = 00 then led7seg = (nada)
 					--                   |                         | if D = 01 then led7seg = (abajo)
 					--                   |                         | if D = 10 then led7seg = (medio)
